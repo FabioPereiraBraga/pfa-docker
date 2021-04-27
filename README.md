@@ -4,7 +4,7 @@ docker network create -d bridge pfa-docker
 
 # Container MYSQL
 
-docker run --name pfa-mysql -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=full_cycle --network pfa-docker  -v $(pwd)/mysql/data:/var/lib/mysql -v $(pwd)/mysql/db:/docker-entrypoint-initdb.d  -d mysql:5.7.34
+docker run --name pfa-mysql -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=full_cycle --network pfa-docker  -v $(pwd)/mysql/data:/var/lib/mysql -d mysql:5.7.34
 
 
 # Container Aplicação
