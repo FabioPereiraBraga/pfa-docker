@@ -13,8 +13,8 @@ docker run -d --name pfa_app --network pfa-docker fabiobraga/pfa-app:1.0.5
 
 # Container nginx
 
-docker run --name pfa_nginx --network pfa-docker -v $(pwd)/nginx/default.conf:/etc/nginx/conf.d/ -p 8099:80 -d nginx:1.19
+docker run --name pfa_nginx --network pfa-docker  -p 8099:80 -d -v $(pwd)/app-php:/var/www -v $(pwd)/nginx:/etc/nginx/conf.d nginx:1.15.0-alpine
 
 # Docker Hub Image
 
-docker run --name pfa_nginx --network pfa-docker  -p 8099:80 -d -v $(pwd)/app-php:/var/www -v $(pwd)/nginx:/etc/nginx/conf.d nginx:1.15.0-alpine
+https://hub.docker.com/repository/docker/fabiobraga/pfa-app
