@@ -1,0 +1,52 @@
+version: "3"
+
+services: 
+    pfa_db:
+        image: mysql:5.7 
+        command: --default-authentication-plugin=mysql_native_password 
+        container_name: db
+        volumes: 
+            -
+        environment: 
+            MYSQL_ROOT_PASSWORD: root      
+        volumes:
+            - ./mysql/dbdata:/var/lib/mysql
+            - ./mysql/db:/docker-entrypoint-initdb.d 
+        networks: 
+            - app-db   
+            
+    pfa_app:
+        build: 
+            context: ./app-php
+        image: app_pfa
+        container_name: pfa_app_php 
+        volumes: 
+            - ./app-php:/var/www
+        entrypoint: dockerize  -timeout 60s  -wait tcp://db:3306 php-fpm   
+        networks: 
+            - app-db
+            - app-proxy
+        depends_on: 
+            - pfa_db 
+            
+    pfa_proxy:
+        build:
+            context: ./nginx
+        image: nginx_pfa
+        container_name: pfa_nginx_proxy
+        ports: 
+            - 8000:80
+        volumes: 
+            - ./app-php:/var/www    
+        depends_on: 
+            - pfa_app
+        restart: always  
+        networks: 
+            - app-proxy   
+
+            
+networks:
+    app-db:
+        driver: bridge
+    app-proxy:
+        driver: bridge                
