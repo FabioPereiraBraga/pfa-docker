@@ -2,7 +2,7 @@
     <body>
     <ul>
        <?php foreach($modules as $module): ?>
-        <li><?= $module['name'] ?></li>
+        <li><?= utf8_decode( $module['name'] ) ?></li>
        <?php endforeach;?>
     </ul>
 

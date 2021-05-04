@@ -22,7 +22,7 @@ services:
         container_name: pfa_app_php 
         volumes: 
             - ./app-php:/var/www
-        entrypoint: dockerize  -timeout 60s  -wait tcp://db:3306 php-fpm   
+        entrypoint: dockerize  -timeout 60s  -wait tcp://db:3306 ./docker-entrypoint.sh   
         networks: 
             - app-db
             - app-proxy

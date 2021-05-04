@@ -1,4 +1,4 @@
 #!/bin/bash
 
-php artisan migrate:fresh --seed
+composer install
 php-fpm
